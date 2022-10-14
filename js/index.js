@@ -22,6 +22,7 @@ let back1 = 0;
 let back2 = -canvas.height;
 let gameId = 0;
 
+
 const moveCar = () => {
    if (carX + carMovement <= canvasWidth - 70 && carX + carMovement >= 0) {
      carX += carMovement
@@ -49,6 +50,7 @@ const animate = () => {
   if (gameId === 2000) {
     isGameOver = true;
   }
+  
 }
 
 window.onload = () => {
@@ -73,3 +75,32 @@ window.onload = () => {
     carMovement = 0;
   });
 };}
+
+const myObstacles = [];
+
+const myGameArea = {
+  canvas: document.createElement('canvas'),
+  frames: 0,
+};
+
+function updateObstacles() {
+  for (i = 0; i < myObstacles.length; i++) {
+    myObstacles[i].x += -1;
+    myObstacles[i].update();
+  frames += 1;
+  if (myGameArea.frames % 120 === 0) {
+    let x = myGameArea.canvas.width;
+    let minHeight = 20;
+    let maxHeight = 200;
+    let height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+    let minGap = 50;
+    let maxGap = 200;
+    let gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+    myObstacles.push(new Component(10, height, 'green', x, 0));
+    myObstacles.push(new Component(10, x - height - gap, 'green', x, height + gap));
+  }
+}
+}
+class Component {};
+
+
